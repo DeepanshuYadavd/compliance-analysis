@@ -10,11 +10,21 @@
   display: flex;
   align-items: center;
   justify-content: center;
-
+  gap: 10rem;
   font-family: "Plus Jakarta Sans", sans-serif;
   margin: 0;
 }
 
+.timer {
+  font-size: xx-large;
+  height: 10rem;
+  width: 10rem;
+  border-radius: 50%;
+  background: linear-gradient(to right, purple, blue);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 .quizCard {
   background: rgba(255, 255, 255, 0.03);
   backdrop-filter: blur(20px);

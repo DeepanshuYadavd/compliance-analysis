@@ -1,8 +1,26 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const Dashboard = () => {
   const [currentIndex, setCurrentIndex] = useState(null);
   const [score, setScore] = useState(0);
+  const [time, setTime] = useState(0);
+
+  let timer;
+  useEffect(() => {
+    if (currentIndex !== null) {
+      if (currentIndex > QuestionsList.length - 1) {
+        return;
+      }
+      timer = setTimeout(() => {
+        setTime(time - 1);
+      }, 1000);
+      if (time < 0) {
+        setCurrentIndex(currentIndex + 1);
+        setTime(10);
+      }
+    }
+    return () => clearTimeout(timer);
+  }, [time]);
 
   const QuestionsList = [
     {
@@ -38,23 +56,38 @@ const Dashboard = () => {
       setScore(score + 1);
     }
     setCurrentIndex(currentIndex + 1);
+    clearTimeout(timer);
+    setTime(10);
   };
-
-  console.log(score, "score");
 
   if (currentIndex + 1 > QuestionsList?.length) {
     return (
       <div className="container">
         {score}/ {QuestionsList?.length}
       </div>
+      
     );
   }
+
+
   return (
     <div className="container">
+      {currentIndex !== null && (
+        <div className="timer">
+          <h2>{time}</h2>
+        </div>
+      )}
+
       {currentIndex === null ? (
         <div className="quizCard">
           <h1 className="title">QUIZ PRO</h1>
-          <button className="startBtn" onClick={() => setCurrentIndex(0)}>
+          <button
+            className="startBtn"
+            onClick={() => {
+              setCurrentIndex(0);
+              setTime(10);
+            }}
+          >
             GET STARTED
           </button>
         </div>
