@@ -1,8 +1,13 @@
 import DashboardIcon from "@mui/icons-material/Dashboard";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import LoginIcon from "@mui/icons-material/Login";
+import AssessmentIcon from "@mui/icons-material/Assessment";
+import EngineeringIcon from "@mui/icons-material/Engineering";
+import PolicyIcon from "@mui/icons-material/Policy";
+import CategoryIcon from "@mui/icons-material/Category";
+import ApartmentIcon from "@mui/icons-material/Apartment";
 import { AppProvider } from "@toolpad/core/AppProvider";
 import { DashboardLayout } from "@toolpad/core/DashboardLayout";
-import { Outlet, useLocation, useNavigate } from "react-router-dom"
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 const NAVIGATION = [
   {
     segment: "",
@@ -10,9 +15,37 @@ const NAVIGATION = [
     icon: <DashboardIcon />,
   },
   {
-    segment: "about",
-    title: "About",
-    icon: <ShoppingCartIcon />,
+    segment: "organization",
+    title: "Organizations",
+    icon: <ApartmentIcon />,
+  },
+  {
+    segment: "products",
+    title: "Products",
+    icon: <CategoryIcon />,
+  },
+  {
+    segment: "rules-and-policies",
+    title: "Rules & Policies",
+    icon: <PolicyIcon />,
+  },
+  {
+    segment: "compliance-engine",
+    title: "Compliance Engine",
+    icon: <EngineeringIcon />,
+  },
+  {
+    segment: "reports",
+    title: "Reports",
+    icon: <AssessmentIcon />,
+  },
+  {
+    kind: "divider",
+  },
+  {
+    segment: "signup",
+    title: "Register",
+    icon: <LoginIcon />,
   },
 ];
 function Layout() {
