@@ -7,6 +7,7 @@ import RuleAndPolicies from "./pages/RuleAndPolicies";
 import ComplianceEngine from "./pages/ComplianceEngine";
 import Reports from "./pages/Reports";
 import Signup from "./pages/auth/Signup";
+import Signin from "./pages/auth/Signin";
 
 function App() {
   const router = createBrowserRouter([
@@ -42,9 +43,16 @@ function App() {
           path: "/signup",
           element: <Signup />,
         },
+        {
+          path: "/signin",
+          element: <Signin />,
+        },
       ],
     },
   ]);
+
+
+
   return (
     <>
       <RouterProvider router={router} />
