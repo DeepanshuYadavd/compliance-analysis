@@ -1,46 +1,49 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import Visibility from '@mui/icons-material/Visibility';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import api from '../../api/api';
-import './Signin.css';
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import api from "../../api/api";
+import "./Signin.css";
+import { useAuth } from "../../context/AuthContext.jsx";
 
 const Signin = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    email: '',
-    password: ''
+    email: "",
+    password: "",
   });
   const [showPassword, setShowPassword] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+
+  const { login } = useAuth();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
-    if (error) setError('');
+    if (error) setError("");
   };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     try {
-      const response = await api.post('/auth/signin', formData);
-
+     
+      // const response = await api.post('/auth/signin', formData);
+      const response = await login(formData);
       if (response.status === 200) {
-        alert('Signin successful!');
-        navigate('/');
+        alert("Signin successful!");
+        navigate("/");
       }
     } catch (err) {
-      setError(err.response?.data?.message || 'Invalid email or password');
+      console.log(err);
+      setError(err.response?.data?.message || "Invalid email or password");
     } finally {
       setLoading(false);
     }
   };
-
   return (
     <div className="container">
       <div className="card">
@@ -53,7 +56,9 @@ const Signin = () => {
 
         <form onSubmit={handleSubmit}>
           <div className="formGroup">
-            <label htmlFor="email" className="label">Email Address</label>
+            <label htmlFor="email" className="label">
+              Email Address
+            </label>
             <input
               type="email"
               id="email"
@@ -68,7 +73,9 @@ const Signin = () => {
           </div>
 
           <div className="formGroup">
-            <label htmlFor="password" className="label">Password</label>
+            <label htmlFor="password" className="label">
+              Password
+            </label>
             <div className="passwordWrapper">
               <input
                 type={showPassword ? "text" : "password"}
@@ -87,23 +94,25 @@ const Signin = () => {
                 onClick={() => setShowPassword(!showPassword)}
                 tabIndex="-1"
               >
-                {showPassword ? <VisibilityOff fontSize="small" /> : <Visibility fontSize="small" />}
+                {showPassword ? (
+                  <VisibilityOff fontSize="small" />
+                ) : (
+                  <Visibility fontSize="small" />
+                )}
               </button>
             </div>
           </div>
 
-          <button 
-            type="submit" 
-            className="button"
-            disabled={loading}
-          >
-            {loading ? 'Signing in...' : 'Sign In'}
+          <button type="submit" className="button" disabled={loading}>
+            {loading ? "Signing in..." : "Sign In"}
           </button>
         </form>
 
         <div className="footer">
-          Don't have an account? 
-          <Link to="/signup" className="link">Sign Up</Link>
+          Don't have an account?
+          <Link to="/signup" className="link">
+            Sign Up
+          </Link>
         </div>
       </div>
     </div>
@@ -111,4 +120,3 @@ const Signin = () => {
 };
 
 export default Signin;
-

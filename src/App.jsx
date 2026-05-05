@@ -8,6 +8,8 @@ import ComplianceEngine from "./pages/ComplianceEngine";
 import Reports from "./pages/Reports";
 import Signup from "./pages/auth/Signup";
 import Signin from "./pages/auth/Signin";
+import { AuthProvider } from "./context/AuthContext.jsx";
+import ProtectedRoute from "./components/ProtectedRoute.jsx";
 
 function App() {
   const router = createBrowserRouter([
@@ -20,24 +22,29 @@ function App() {
           element: <Dashboard />,
         },
         {
-          path: "/organization",
-          element: <Oraganizations />,
-        },
-        {
-          path: "/products",
-          element: <Product />,
-        },
-        {
-          path: "/rules-and-policies",
-          element: <RuleAndPolicies />,
-        },
-        {
-          path: "/compliance-engine",
-          element: <ComplianceEngine />,
-        },
-        {
-          path: "/reports",
-          element: <Reports />,
+          element: <ProtectedRoute />,
+          children: [
+            {
+              path: "/organization",
+              element: <Oraganizations />,
+            },
+            {
+              path: "/products",
+              element: <Product />,
+            },
+            {
+              path: "/rules-and-policies",
+              element: <RuleAndPolicies />,
+            },
+            {
+              path: "/compliance-engine",
+              element: <ComplianceEngine />,
+            },
+            {
+              path: "/reports",
+              element: <Reports />,
+            },
+          ],
         },
         {
           path: "/signup",
@@ -51,11 +58,11 @@ function App() {
     },
   ]);
 
-
-
   return (
     <>
-      <RouterProvider router={router} />
+      <AuthProvider>
+        <RouterProvider router={router} />
+      </AuthProvider>
     </>
   );
 }
