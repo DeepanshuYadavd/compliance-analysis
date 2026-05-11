@@ -1,20 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import Visibility from '@mui/icons-material/Visibility';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import api from '../../api/api';
-import './Signup.css';
+import { useAppTheme } from '../../context/ThemeContext.jsx';
 
 const Signup = () => {
+  const { mode } = useAppTheme();
   const navigate = useNavigate();
+  
   const [formData, setFormData] = useState({
     userName: '',
     email: '',
     password: '',
     confirmPassword: ''
   });
-  const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [error, setError] = useState('');
   const [validationError, setValidationError] = useState('');
   const [loading, setLoading] = useState(false);
@@ -28,7 +26,6 @@ const Signup = () => {
     if (error) setError('');
   };
 
-  // Real-time validation for confirm password
   useEffect(() => {
     if (formData.confirmPassword && formData.password !== formData.confirmPassword) {
       setValidationError("Passwords do not match");
@@ -51,7 +48,6 @@ const Signup = () => {
         password: formData.password
       });
       if (response.status === 201) {
-        alert('Registration successful!');
         navigate('/signin');
       }
     } catch (err) {
@@ -61,114 +57,192 @@ const Signup = () => {
     }
   };
 
+  const isDark = mode === 'dark';
+  const primaryColor = '#2563eb';
+  const bgColor = isDark ? '#0f172a' : '#f8fafc';
+  const cardBg = isDark ? '#1e293b' : '#ffffff';
+  const textColor = isDark ? '#f8fafc' : '#1e293b';
+  const secondaryTextColor = isDark ? '#94a3b8' : '#64748b';
+  const borderColor = isDark ? '#334155' : '#e2e8f0';
+
+  const styles = {
+    container: {
+      minHeight: '100vh',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      backgroundColor: bgColor,
+      padding: '20px',
+      fontFamily: '"Inter", "Plus Jakarta Sans", sans-serif'
+    },
+    card: {
+      width: '100%',
+      maxWidth: '540px',
+      padding: '40px',
+      backgroundColor: cardBg,
+      borderRadius: '20px',
+      boxShadow: isDark ? '0 20px 40px rgba(0,0,0,0.4)' : '0 10px 30px rgba(0,0,0,0.04)',
+      border: `1px solid ${borderColor}`,
+      textAlign: 'center'
+    },
+    header: {
+      marginBottom: '32px'
+    },
+    title: {
+      fontSize: '28px',
+      fontWeight: '800',
+      color: textColor,
+      marginBottom: '8px',
+      letterSpacing: '-1px'
+    },
+    subtitle: {
+      fontSize: '15px',
+      color: secondaryTextColor
+    },
+    formGrid: {
+      display: 'grid',
+      gridTemplateColumns: 'repeat(2, 1fr)',
+      gap: '16px',
+      marginBottom: '32px'
+    },
+    inputGroup: {
+      display: 'flex',
+      flexDirection: 'column',
+      textAlign: 'left'
+    },
+    label: {
+      marginBottom: '6px',
+      fontSize: '13px',
+      fontWeight: '600',
+      color: textColor,
+      opacity: 0.8
+    },
+    input: {
+      height: '48px',
+      padding: '0 16px',
+      borderRadius: '10px',
+      border: `1px solid ${borderColor}`,
+      backgroundColor: isDark ? '#0f172a' : '#ffffff',
+      color: textColor,
+      fontSize: '14px',
+      outline: 'none',
+      transition: 'border-color 0.2s',
+      width: '100%',
+      boxSizing: 'border-box'
+    },
+    button: {
+      backgroundColor: primaryColor,
+      color: '#ffffff',
+      padding: '14px 40px',
+      borderRadius: '25px',
+      border: 'none',
+      fontSize: '16px',
+      fontWeight: '700',
+      cursor: 'pointer',
+      width: '100%',
+      transition: 'background-color 0.2s, transform 0.1s'
+    },
+    footer: {
+      marginTop: '24px',
+      fontSize: '14px',
+      color: secondaryTextColor
+    },
+    error: {
+      color: '#ef4444',
+      fontSize: '13px',
+      marginBottom: '20px',
+      fontWeight: '500'
+    }
+  };
+
   return (
-    <div className="container">
-      <div className="card">
-        <div className="header">
-          <h1>Create Account</h1>
-          <p>Join us to start managing your compliance</p>
+    <div style={styles.container}>
+      <div style={styles.card}>
+        <div style={styles.header}>
+          <h1 style={styles.title}>Create Account</h1>
+          <p style={styles.subtitle}>Fill in your details to get started.</p>
         </div>
 
-        {error && <div className="errorMessage">{error}</div>}
+        {error && <div style={styles.error}>{error}</div>}
 
         <form onSubmit={handleSubmit}>
-          <div className="formGrid">
-            <div className="formGroup">
-              <label htmlFor="userName" className="label">Username</label>
+          <div style={styles.formGrid}>
+            <div style={styles.inputGroup}>
+              <label style={styles.label}>Username</label>
               <input
                 type="text"
-                id="userName"
                 name="userName"
-                className="input"
-                placeholder="Enter your username"
+                placeholder="Username"
                 value={formData.userName}
                 onChange={handleChange}
                 required
-                disabled={loading}
+                style={styles.input}
+                onFocus={(e) => e.target.style.borderColor = primaryColor}
+                onBlur={(e) => e.target.style.borderColor = borderColor}
               />
             </div>
-
-            <div className="formGroup">
-              <label htmlFor="email" className="label">Email Address</label>
+            <div style={styles.inputGroup}>
+              <label style={styles.label}>Email address</label>
               <input
                 type="email"
-                id="email"
                 name="email"
-                className="input"
-                placeholder="name@company.com"
+                placeholder="Email"
                 value={formData.email}
                 onChange={handleChange}
                 required
-                disabled={loading}
+                style={styles.input}
+                onFocus={(e) => e.target.style.borderColor = primaryColor}
+                onBlur={(e) => e.target.style.borderColor = borderColor}
               />
             </div>
-
-            <div className="formGroup">
-              <label htmlFor="password" className="label">Password</label>
-              <div className="passwordWrapper">
-                <input
-                  type={showPassword ? "text" : "password"}
-                  id="password"
-                  name="password"
-                  className="input"
-                  placeholder="••••••••"
-                  value={formData.password}
-                  onChange={handleChange}
-                  required
-                  disabled={loading}
-                />
-                <button
-                  type="button"
-                  className="visibilityToggle"
-                  onClick={() => setShowPassword(!showPassword)}
-                  tabIndex="-1"
-                >
-                  {showPassword ? <VisibilityOff fontSize="small" /> : <Visibility fontSize="small" />}
-                </button>
-              </div>
+            <div style={styles.inputGroup}>
+              <label style={styles.label}>Password</label>
+              <input
+                type="password"
+                name="password"
+                placeholder="Password"
+                value={formData.password}
+                onChange={handleChange}
+                required
+                style={styles.input}
+                onFocus={(e) => e.target.style.borderColor = primaryColor}
+                onBlur={(e) => e.target.style.borderColor = borderColor}
+              />
             </div>
-
-            <div className="formGroup">
-              <label htmlFor="confirmPassword" className="label">Confirm Password</label>
-              <div className="passwordWrapper">
-                <input
-                  type={showConfirmPassword ? "text" : "password"}
-                  id="confirmPassword"
-                  name="confirmPassword"
-                  className="input"
-                  placeholder="••••••••"
-                  value={formData.confirmPassword}
-                  onChange={handleChange}
-                  required
-                  disabled={loading}
-                />
-                <button
-                  type="button"
-                  className="visibilityToggle"
-                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                  tabIndex="-1"
-                >
-                  {showConfirmPassword ? <VisibilityOff fontSize="small" /> : <Visibility fontSize="small" />}
-                </button>
-              </div>
-              {validationError && <span className="validationError">{validationError}</span>}
-            </div>
-
-            <div className="fullWidth">
-              <button 
-                type="submit" 
-                className="button"
-                disabled={loading || !!validationError}
-              >
-                {loading ? 'Creating Account...' : 'Sign Up'}
-              </button>
+            <div style={styles.inputGroup}>
+              <label style={styles.label}>Confirm password</label>
+              <input
+                type="password"
+                name="confirmPassword"
+                placeholder="Confirm"
+                value={formData.confirmPassword}
+                onChange={handleChange}
+                required
+                style={{
+                  ...styles.input,
+                  borderColor: validationError ? '#ef4444' : borderColor
+                }}
+                onFocus={(e) => e.target.style.borderColor = validationError ? '#ef4444' : primaryColor}
+                onBlur={(e) => e.target.style.borderColor = validationError ? '#ef4444' : borderColor}
+              />
             </div>
           </div>
+          {validationError && <div style={{...styles.error, marginTop: '-20px', marginBottom: '20px'}}>{validationError}</div>}
+
+          <button 
+            type="submit" 
+            disabled={loading || !!validationError}
+            style={{
+              ...styles.button,
+              opacity: loading ? 0.7 : 1
+            }}
+          >
+            {loading ? 'Processing...' : 'Sign Up'}
+          </button>
         </form>
 
-        <div className="footer">
-          Already have an account? 
-          <Link to="/signin" className="link">Sign In</Link>
+        <div style={styles.footer}>
+          Already have an account? <Link to="/signin" style={{color: primaryColor, textDecoration: 'none', fontWeight: '700'}}>Sign In</Link>
         </div>
       </div>
     </div>

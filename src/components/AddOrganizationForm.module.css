@@ -1,0 +1,86 @@
+.formContainer {
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 32px;
+  padding-bottom: 32px;
+}
+
+.paper {
+  padding: 32px;
+  border-radius: 16px;
+  overflow: hidden;
+  position: relative;
+  border: 1px solid rgba(226, 232, 240, 0.1);
+  transition: all 0.3s ease;
+}
+
+.lightPaper {
+  background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
+  box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.05);
+}
+
+.darkPaper {
+  background: linear-gradient(145deg, #1e293b 0%, #0f172a 100%);
+  box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.5);
+  border-color: rgba(255, 255, 255, 0.05);
+}
+
+.headerBox {
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+.title {
+  font-size: 2.125rem;
+  font-weight: 800;
+  margin-bottom: 8px;
+  background: linear-gradient(45deg, #3b82f6, #8b5cf6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+  color: #3b82f6;
+  font-weight: 700;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.divider {
+  margin: 16px 0 !important;
+}
+
+.submitButton {
+  padding: 16px 0;
+  border-radius: 12px;
+  font-weight: 800;
+  font-size: 1.1rem;
+  text-transform: none;
+  box-shadow: 0 8px 25px -5px rgba(59, 130, 246, 0.5);
+  background: linear-gradient(45deg, #3b82f6, #2563eb);
+  color: white;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.submitButton:hover {
+  background: linear-gradient(45deg, #2563eb, #1d4ed8);
+  box-shadow: 0 12px 30px -5px rgba(59, 130, 246, 0.6);
+  transform: translateY(-1px);
+}
+
+.submitButton:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}

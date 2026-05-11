@@ -1,11 +1,12 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import api from "../api/api";
+import { toast } from "react-toastify";
 //  create context:
 const AuthContext = createContext();
 //  create function that provide the context to whole application
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const checkAuth = async () => {
     try {

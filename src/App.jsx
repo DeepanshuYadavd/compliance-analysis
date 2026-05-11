@@ -9,7 +9,10 @@ import Reports from "./pages/Reports";
 import Signup from "./pages/auth/Signup";
 import Signin from "./pages/auth/Signin";
 import { AuthProvider } from "./context/AuthContext.jsx";
+import { ThemeContextProvider } from "./context/ThemeContext.jsx";
 import ProtectedRoute from "./components/ProtectedRoute.jsx";
+import Logout from "./pages/auth/Logout.jsx";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   const router = createBrowserRouter([
@@ -54,6 +57,10 @@ function App() {
           path: "/signin",
           element: <Signin />,
         },
+        {
+          path: "/logout",
+          element: <Logout />,
+        },
       ],
     },
   ]);
@@ -61,7 +68,10 @@ function App() {
   return (
     <>
       <AuthProvider>
-        <RouterProvider router={router} />
+        <ThemeContextProvider>
+          <RouterProvider router={router} />
+          <ToastContainer position="top-center" autoClose={3000} />
+        </ThemeContextProvider>
       </AuthProvider>
     </>
   );
