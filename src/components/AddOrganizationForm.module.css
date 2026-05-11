@@ -1,86 +1,156 @@
-.formContainer {
-  max-width: 1200px;
-  margin-left: auto;
-  margin-right: auto;
-  padding-top: 32px;
-  padding-bottom: 32px;
+.formWrapper {
+  max-width: 1000px;
+  margin: 2rem auto;
+  padding: 0 1rem;
 }
 
-.paper {
-  padding: 32px;
-  border-radius: 16px;
-  overflow: hidden;
-  position: relative;
-  border: 1px solid rgba(226, 232, 240, 0.1);
-  transition: all 0.3s ease;
+.modernForm {
+  background: #ffffff;
+  padding: 2.5rem;
+  border-radius: 1.5rem;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+  border: 1px solid #f1f5f9;
 }
 
-.lightPaper {
-  background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
-  box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.05);
+:global(.dark) .modernForm {
+  background: #1e293b;
+  border-color: #334155;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
 }
 
-.darkPaper {
-  background: linear-gradient(145deg, #1e293b 0%, #0f172a 100%);
-  box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.5);
-  border-color: rgba(255, 255, 255, 0.05);
-}
-
-.headerBox {
-  margin-bottom: 40px;
+.formHeader {
+  margin-bottom: 2.5rem;
   text-align: center;
 }
 
-.title {
-  font-size: 2.125rem;
+.formHeader h2 {
+  font-size: 2rem;
   font-weight: 800;
-  margin-bottom: 8px;
-  background: linear-gradient(45deg, #3b82f6, #8b5cf6);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: #0f172a;
+  margin-bottom: 0.5rem;
 }
 
-.sectionHeader {
+:global(.dark) .formHeader h2 {
+  color: #f8fafc;
+}
+
+.formHeader p {
+  color: #64748b;
+  font-size: 0.95rem;
+}
+
+.formSection {
+  margin-bottom: 2.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+:global(.dark) .formSection {
+  border-color: #334155;
+}
+
+.sectionTitle {
   display: flex;
   align-items: center;
-  gap: 12px;
-  margin-bottom: 24px;
-  color: #3b82f6;
-  font-weight: 700;
+  gap: 0.75rem;
   font-size: 1.1rem;
+  font-weight: 700;
+  color: #3b82f6;
+  margin-bottom: 1.5rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
 
-.divider {
-  margin: 16px 0 !important;
+.formGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
 }
 
-.submitButton {
-  padding: 16px 0;
-  border-radius: 12px;
-  font-weight: 800;
-  font-size: 1.1rem;
-  text-transform: none;
-  box-shadow: 0 8px 25px -5px rgba(59, 130, 246, 0.5);
-  background: linear-gradient(45deg, #3b82f6, #2563eb);
+.tripleGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.quadGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.25rem;
+}
+
+@media (max-width: 768px) {
+  .formGrid, .tripleGrid, .quadGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.inputGroup label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #475569;
+}
+
+:global(.dark) .inputGroup label {
+  color: #94a3b8;
+}
+
+.inputGroup input {
+  padding: 0.75rem 1rem;
+  border-radius: 0.75rem;
+  border: 1.5px solid #e2e8f0;
+  background: #f8fafc;
+  font-size: 0.95rem;
+  color: #1e293b;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+:global(.dark) .inputGroup input {
+  background: #0f172a;
+  border-color: #334155;
+  color: #f8fafc;
+}
+
+.inputGroup input:focus {
+  border-color: #3b82f6;
+  background: #ffffff;
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+}
+
+:global(.dark) .inputGroup input:focus {
+  background: #0f172a;
+}
+
+.submitBtn {
+  width: 100%;
+  padding: 1rem;
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
   color: white;
   border: none;
+  border-radius: 1rem;
+  font-size: 1.1rem;
+  font-weight: 700;
   cursor: pointer;
-  width: 100%;
   transition: all 0.2s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  box-shadow: 0 4px 20px rgba(37, 99, 235, 0.2);
+  margin-top: 1rem;
 }
 
-.submitButton:hover {
-  background: linear-gradient(45deg, #2563eb, #1d4ed8);
-  box-shadow: 0 12px 30px -5px rgba(59, 130, 246, 0.6);
-  transform: translateY(-1px);
+.submitBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(37, 99, 235, 0.4);
 }
 
-.submitButton:disabled {
+.submitBtn:disabled {
   opacity: 0.7;
   cursor: not-allowed;
+  transform: none;
 }

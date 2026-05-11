@@ -26,6 +26,12 @@ export const ThemeContextProvider = ({ children }) => {
     });
   };
 
+  useEffect(() => {
+    const root = window.document.documentElement;
+    root.classList.remove('light', 'dark');
+    root.classList.add(mode);
+  }, [mode]);
+
   const theme = useMemo(
     () => {
       let createdTheme = createTheme({
